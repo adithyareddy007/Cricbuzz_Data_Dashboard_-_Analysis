@@ -28,21 +28,11 @@ st.markdown("""
         border-radius: 8px;
         border-left: 4px solid #FF6B35;
     }
-    .nav-button {
-        background: #FF6B35;
-        color: white;
-        padding: 0.5rem 1rem;
-        border-radius: 5px;
-        text-decoration: none;
-        display: inline-block;
-        margin: 0.25rem;
-    }
 </style>
 """, unsafe_allow_html=True)
 
-# Enhanced Sidebar
+# Sidebar Navigation (Cleaned)
 st.sidebar.markdown("🏏 **Cricbuzz LiveStats**")
-st.sidebar.markdown("---")
 st.sidebar.markdown("📌 **Navigation:**")
 st.sidebar.page_link("app.py", label="🏠 Home", icon="🏠")
 st.sidebar.page_link("pages/2_live_matches.py", label="⚡ Live Matches", icon="⚡")
@@ -57,15 +47,12 @@ def get_quick_stats():
         return None, None, None
     
     try:
-        # Get total matches
         matches_result = conn.execute(text("SELECT COUNT(*) FROM matches")).fetchone()
         total_matches = matches_result[0] if matches_result else 0
         
-        # Get total players
         players_result = conn.execute(text("SELECT COUNT(*) FROM players")).fetchone()
         total_players = players_result[0] if players_result else 0
         
-        # Get active matches (matches with scores)
         active_result = conn.execute(text("""
             SELECT COUNT(DISTINCT match_id) FROM match_scores 
             WHERE runs > 0
@@ -86,40 +73,13 @@ if matches is not None:
     st.sidebar.metric("Total Players", players)
     st.sidebar.metric("Active Matches", active)
 
-# Main Content
+# Main Header Only (removed feature cards)
 st.markdown("""
 <div class="main-header">
     <h1>🏏 Cricbuzz LiveStats Dashboard</h1>
     <p>Your one-stop destination for real-time cricket analytics</p>
 </div>
 """, unsafe_allow_html=True)
-
-# Feature Cards
-col1, col2, col3 = st.columns(3)
-
-with col1:
-    st.markdown("""
-    <div class="metric-card">
-        <h3>⚡ Live Matches</h3>
-        <p>Get real-time updates on ongoing cricket matches with live scores, team details, and match status.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col2:
-    st.markdown("""
-    <div class="metric-card">
-        <h3>📊 Player Statistics</h3>
-        <p>Explore comprehensive player stats across all formats - Test, ODI, and T20 cricket.</p>
-    </div>
-    """, unsafe_allow_html=True)
-
-with col3:
-    st.markdown("""
-    <div class="metric-card">
-        <h3>🛠️ Data Management</h3>
-        <p>Full CRUD operations to manage cricket data including players, matches, and statistics.</p>
-    </div>
-    """, unsafe_allow_html=True)
 
 # Recent Activity Section
 st.markdown("### 📈 Recent Activity")
@@ -168,8 +128,8 @@ with col2:
         st.switch_page("pages/2_live_matches.py")
 
 with col3:
-    if st.button("🏆 Top Players", use_container_width=True):
-        st.switch_page("pages/3_top_stats.py")
+    if st.button("📊 SQL Analytics", use_container_width=True):
+        st.switch_page("pages/4_sql_analytics.py")
 
 # Footer
 st.markdown("---")
