@@ -1,15 +1,3 @@
--- ================================
--- 🏏 Cricbuzz LiveStats Full Schema
--- ================================
-
--- Drop tables in correct order to handle dependencies
---DROP TABLE IF EXISTS batting_stats CASCADE;
---DROP TABLE IF EXISTS bowling_stats CASCADE;
---DROP TABLE IF EXISTS match_scores CASCADE;
---DROP TABLE IF EXISTS matches CASCADE;
---DROP TABLE IF EXISTS players CASCADE;
---DROP TABLE IF EXISTS venues CASCADE;
---DROP TABLE IF EXISTS teams CASCADE;
 
 -- -------------------
 -- Teams
